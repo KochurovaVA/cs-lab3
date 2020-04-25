@@ -1,8 +1,8 @@
+#include "histogram.h"
 #include <iostream>
 #include <vector>
 
 using namespace std;
-
 
 vector<double> input_numbers(size_t count) {
     vector<double> result(count);
@@ -10,19 +10,6 @@ vector<double> input_numbers(size_t count) {
         cin >> result[i];
     }
     return result;
-}
-
-void find_minmax(const vector<double> & numbers, double& min, double& max) {
-    min = numbers[0];
-    max = numbers[0];
-    for (double number : numbers) {
-        if (number < min) {
-            min = number;
-        }
-        if (number > max) {
-            max = number;
-        }
-    }
 }
 
 vector<size_t> make_histogram(const vector<double> & numbers, size_t bin_count, double min, double max) {
@@ -105,8 +92,6 @@ void show_histogram_svg(const vector<size_t> & bins)
     const size_t SCREEN_WIDTH = 80;
     const size_t MAX_ASTERISK = SCREEN_WIDTH - 4 - 1;
     svg_begin(IMAGE_WIDTH, IMAGE_HEIGHT);
-    // svg_text(TEXT_LEFT, TEXT_BASELINE, to_string(bins[0]));
-    //svg_rect(TEXT_WIDTH, 0, bins[0] * BLOCK_WIDTH, BIN_HEIGHT);
     double top = 0;
     string stroke = "black";
     string fill = "red";
@@ -147,7 +132,6 @@ int main() {
     cerr << "Enter column count: ";
     cin >> bin_count;
     double min, max;
-    find_minmax(numbers, min, max);
     const auto bins = make_histogram(numbers, bin_count, min, max);
 
     show_histogram_svg(bins);
@@ -155,3 +139,4 @@ int main() {
 
     return 0;
 }
+
